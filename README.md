@@ -1,23 +1,21 @@
 # 👋 Hi, I'm Marcus (Mac80Mo)!
 
-**💻 Umschüler zum Fachinformatiker Anwendungsentwicklung (FIAE) | Python, Java, SQL & mehr 🚀**
+**💻 Trainee Application Developer (FIAE) | Python, Java, SQL & more 🚀**
 
 ---
 
-## 📊 GitHub-Aktivität
+## 📊 GitHub Activity
 ![Marcus's GitHub stats](https://github-readme-stats.vercel.app/api?username=Mac80Mo&show_icons=true&theme=dark)
 
 ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Mac80Mo&layout=compact&theme=dark)
 
 ---
 
-## 🌱 Über mich
-- 👨‍💻 Ich befinde mich aktuell in der Umschulung zum Fachinformatiker Anwendungsentwicklung (IHK).
-- 📈 Derzeit lerne ich: Python, Java, SQL und Grundlagen in Netzwerksicherheit.
-- 🚀 Ziel: Entwicklung kreativer und praktischer Anwendungen, die Mehrwert schaffen.
+## 🌱 About Me
+- 👨‍💻 I am currently training as an application developer (IHK-certified).
+- 📈 Currently learning: Python, Java, SQL, and fundamentals of network security.
+- 🚀 Goal: Developing creative and practical applications that add real value.
 
 ---
 
-📧 **Kontakt**: marcus.moser@mail.de
-
- 
+📧 **Contact**: marcus.moser@mail.de
