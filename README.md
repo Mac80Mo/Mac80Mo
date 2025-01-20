@@ -11,4 +11,13 @@
 
 ---
 
+## 🌱 Über mich
+- 👨‍💻 Ich befinde mich aktuell in der Umschulung zum Fachinformatiker Anwendungsentwicklung (IHK).
+- 📈 Derzeit lerne ich: Python, Java, SQL und Grundlagen in Netzwerksicherheit.
+- 🚀 Ziel: Entwicklung kreativer und praktischer Anwendungen, die Mehrwert schaffen.
+
+---
+
+📧 **Kontakt**: marcus.moser@mail.de
+
  
