@@ -7,6 +7,8 @@
 ## 📊 GitHub Activity
 ![Marcus's GitHub stats](https://github-readme-stats.vercel.app/api?username=Mac80Mo&show_icons=true&theme=dark)
 
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Mac80Mo&langs_count=5&theme=dark)
+
 ---
 
 ## 🌱 About Me  
