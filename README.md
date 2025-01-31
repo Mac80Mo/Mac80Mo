@@ -1,4 +1,4 @@
-# 👋 Hi, I'm Marcus (Mac80Mo)!
+# 👋 Hi, I'm Marcus!
 
 **💻 Trainee Application Developer (FIAE) | Python, Java, SQL & more 🚀**
 
