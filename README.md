@@ -4,11 +4,6 @@
 
 ---
 
-## 📊 GitHub Activity
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Mac80Mo&langs_count=5&theme=dark)
-
----
-
 ## 🌱 About Me  
 - 👨‍💻 I am currently in retraining as an **Application Developer (IHK-certified)**, focusing on **Python, Java, HTML, CSS, and SQL**.  
 - 🐍 **Python has become my favorite language**, and I am now focusing on deepening my knowledge in advanced Python concepts and applications.  
