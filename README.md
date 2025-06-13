@@ -4,7 +4,6 @@
 
 ---
 
-📧 **Contact**: marcus.moser@mail.de  
 🔗 **Profile Website**: [mac80mo.github.io/profile-website](https://mac80mo.github.io/profile-website)
 
 
