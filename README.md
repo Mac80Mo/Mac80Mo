@@ -1,6 +1,6 @@
 # 👋 Hi, I'm Marcus!
 
-**💻 Trainee Application Developer (FIAE) | Python, Java, SQL & more 🚀**
+**Trainee Application Developer (FIAE)
 
 ---
 
