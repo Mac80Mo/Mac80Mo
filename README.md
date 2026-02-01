@@ -10,7 +10,7 @@
 
 ---
 
-**About Me**: [https://mac80mo.github.io/profile-website](https://mac80mo.github.io/PortfolioV2/)
+**About Me**: [https://mac80mo.github.io/profile](https://mac80mo.github.io/PortfolioV2/)
 
 
 
