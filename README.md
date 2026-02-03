@@ -1,7 +1,3 @@
-# 👋 Hi, I'm Marcus!
-
-**Trainee Application Developer (FIAE)**
-
 ---
 
 ### Meine Sprachen
@@ -10,7 +6,6 @@
 
 ---
 
-**About Me**: [https://mac80mo.github.io/profile](https://mac80mo.github.io/PortfolioV2/)
 
 
 
