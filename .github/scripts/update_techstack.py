@@ -4,10 +4,12 @@
 Every repository counts equally, regardless of its size: a language counts for a
 repository if it makes up at least TECHSTACK_MIN_SHARE percent of that repository
 (aliases such as Jupyter Notebook -> Python are merged first, then ignored languages
-are dropped). A badge is shown for every
-language that counts in at least TECHSTACK_MIN_REPOS repositories, ordered by weight.
-The badge shows the language's weight: every repository has a
+and frameworks that GitHub reports as languages, such as Vue, are dropped). A badge is
+shown for every language that counts in at least TECHSTACK_MIN_REPOS repositories,
+ordered by weight. The badge shows the language's weight: every repository has a
 total weight of 1, split by its language shares, so all languages add up to 100%.
+All remaining languages are summarized in an "Other" badge. The percentages are
+rounded with the largest remainder method, so the badges always add up to exactly 100%.
 
 Only repository metadata (the languages endpoint) is read, never repository contents.
 Workflow logs of public repositories are public, so this script never prints
@@ -41,8 +43,13 @@ BADGE_ALT = re.compile(r"!\[([^\]]*)\]\(")
 # Languages that are counted as another language.
 LANGUAGE_ALIASES = {"Jupyter Notebook": "Python"}
 
-# Display names that differ from GitHub's language names.
-BADGE_LABELS = {"Vue": "Vue.js"}
+# Frameworks that GitHub reports as languages. They are never counted as a language
+# (their share goes to the other languages of the repository) and are listed manually
+# under "Frameworks & Tools" instead.
+NON_LANGUAGES = {"Vue"}
+
+# Badge that sums up all languages below the thresholds.
+OTHER_LABEL = "Other"
 
 # language -> (badge color, simple-icons slug or None, logo color)
 BADGE_STYLES = {
@@ -54,23 +61,22 @@ BADGE_STYLES = {
     "Go": ("00ADD8", "go", "white"),
     "HTML": ("E34F26", "html5", "white"),
     "Java": ("ED8B00", "openjdk", "white"),
-    "JavaScript": ("222222", "javascript", "F7DF1E"),
+    "JavaScript": ("444C56", "javascript", "F7DF1E"),
     "Jupyter Notebook": ("F37626", "jupyter", "white"),
     "Kotlin": ("7F52FF", "kotlin", "white"),
-    "Less": ("1D365D", "less", "white"),
-    "Lua": ("2C2D72", "lua", "white"),
+    "Less": ("2B4F87", "less", "white"),
+    "Lua": ("3D3FA0", "lua", "white"),
     "PHP": ("777BB4", "php", "white"),
     "Python": ("3776AB", "python", "white"),
     "R": ("276DC3", "r", "white"),
     "Ruby": ("CC342D", "ruby", "white"),
-    "Rust": ("000000", "rust", "white"),
+    "Rust": ("444C56", "rust", "white"),
     "SCSS": ("CC6699", "sass", "white"),
     "Shell": ("4EAA25", "gnubash", "white"),
     "Svelte": ("FF3E00", "svelte", "white"),
     "Swift": ("F05138", "swift", "white"),
     "TeX": ("008080", "latex", "white"),
     "TypeScript": ("3178C6", "typescript", "white"),
-    "Vue": ("4FC08D", "vuedotjs", "white"),
 }
 
 
@@ -158,9 +164,8 @@ def shields_escape(text):
     return urllib.parse.quote(text.replace("-", "--").replace("_", "__"), safe="")
 
 
-def make_badge(language, percent):
-    label = BADGE_LABELS.get(language, language)
-    color, logo, logo_color = BADGE_STYLES.get(language, ("555555", None, "white"))
+def make_badge(label, percent):
+    color, logo, logo_color = BADGE_STYLES.get(label, ("555555", None, "white"))
     url = (
         f"https://img.shields.io/badge/{shields_escape(label)}-{shields_escape(f'{percent}%')}-{color}"
         "?style=flat-square"
@@ -174,12 +179,31 @@ def normalize(name):
     return re.sub(r"[^a-z0-9+#]", "", name.lower().removesuffix(".js"))
 
 
+def to_percentages(weights, minimums):
+    """Round weights to whole percentages that add up to exactly 100 (largest remainder method).
+
+    minimums[i] is the lowest percentage entry i may get; the difference is taken from the largest entry.
+    """
+    total = sum(weights)
+    exact = [100 * weight / total for weight in weights]
+    percentages = [int(value) for value in exact]
+    by_remainder = sorted(range(len(exact)), key=lambda i: exact[i] - percentages[i], reverse=True)
+    for i in by_remainder[: 100 - sum(percentages)]:
+        percentages[i] += 1
+    for i, minimum in enumerate(minimums):
+        while percentages[i] < minimum:
+            percentages[i] += 1
+            percentages[max(range(len(percentages)), key=percentages.__getitem__)] -= 1
+    return percentages
+
+
 def main():
     token = os.environ.get("GH_TOKEN")
     owner = os.environ.get("GITHUB_REPOSITORY_OWNER")
     readme_path = os.environ.get("README_PATH", "README.md")
     source = os.environ.get("TECHSTACK_SOURCE", "installation")
     ignored = {normalize(x) for x in os.environ.get("TECHSTACK_IGNORE", "").split(",") if x.strip()}
+    ignored |= {normalize(x) for x in NON_LANGUAGES}
     try:
         min_share = float(os.environ.get("TECHSTACK_MIN_SHARE", "20"))
         min_repos = int(os.environ.get("TECHSTACK_MIN_REPOS", "3"))
@@ -215,16 +239,28 @@ def main():
     # Each repository has a total weight of 1, so the weights of all languages add up to 100%.
     total_weight = sum(weight for _, weight in stats.values())
 
-    selected = []
+    candidates = []
     for language, (count, weight) in sorted(stats.items(), key=lambda item: item[1][1], reverse=True):
         if count < min_repos or normalize(language) in manual:
             continue
         if not SAFE_LANGUAGE.match(language):
             print("Skipping a language with unexpected characters.")
             continue
-        selected.append((language, count, max(1, round(100 * weight / total_weight))))
+        candidates.append((language, count, weight))
 
-    badges = "\n".join(make_badge(language, percent) for language, _, percent in selected)
+    # Languages below the thresholds are summarized as "Other", so the badges add up to 100%.
+    other_weight = max(0.0, total_weight - sum(weight for _, _, weight in candidates))
+    percentages = to_percentages(
+        [weight for _, _, weight in candidates] + [other_weight],
+        [1] * len(candidates) + [0],
+    )
+    selected = [(language, count, percent) for (language, count, _), percent in zip(candidates, percentages)]
+    other_percent = percentages[-1]
+
+    badges = [make_badge(language, percent) for language, _, percent in selected]
+    if selected and other_percent > 0:
+        badges.append(make_badge(OTHER_LABEL, other_percent))
+    badges = "\n".join(badges)
     caption = (
         f"<sub>Automatically calculated from {counted} repositories (public &amp; private)"
         " · each repository weighted equally</sub>"
@@ -233,6 +269,8 @@ def main():
     updated = readme[:start] + block + readme[end:]
 
     summary = ", ".join(f"{language} {percent}% ({count} repos)" for language, count, percent in selected) or "none"
+    if selected and other_percent > 0:
+        summary += f", {OTHER_LABEL} {other_percent}%"
     print(f"Analyzed {len(repositories)} repositories.")
     print(f"Languages with at least {min_share:g}% share in at least {min_repos} repos: {summary}")
 

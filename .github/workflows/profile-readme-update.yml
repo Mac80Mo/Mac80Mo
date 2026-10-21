@@ -50,7 +50,7 @@ jobs:
         shell: bash
         run: |
           timestamp="$(TZ='Europe/Berlin' date '+%Y-%m-%d %H:%M (Europe/Berlin)')"
-          perl -i -pe "s|^Last updated: .*$|Last updated: \`${timestamp}\`|" README.md
+          perl -i -pe "s|^<sub>Last updated: .*</sub>$|<sub>Last updated: \`${timestamp}\`</sub>|" README.md
 
       - name: Commit changes if needed
         shell: bash
