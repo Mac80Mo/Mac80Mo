@@ -1,7 +1,6 @@
-# Hi, I'm Marcus
+# Marcus
 
-Developer from Germany  
-Focused on Python, AI/LLM projects and web
+IT Specialist - Application Development, AI focused (IHK) & Office Management (IHK).
 
 ---
 
@@ -26,14 +25,26 @@ Last updated: `2026-10-21 20:35 (Europe/Berlin)`
 
 ### Frameworks & Tools
 
-![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
+![Ollama](https://img.shields.io/badge/Ollama-000000?style=flat-square&logo=ollama&logoColor=white)
 ![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=flat-square&logo=chainlink&logoColor=white)
 ![HuggingFace](https://img.shields.io/badge/HuggingFace-FFD21E?style=flat-square&logo=huggingface&logoColor=black)
-![Ollama](https://img.shields.io/badge/Ollama-000000?style=flat-square&logo=ollama&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
+![ChromaDB](https://img.shields.io/badge/ChromaDB-FF6446?style=flat-square&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=FFD62E)
+![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
+
+---
+
+## Certifications
+
+![PCAP](https://img.shields.io/badge/PCAP-Certified_Associate_Python_Programmer_2026-3776AB?style=flat-square&logo=python&logoColor=FFD43B)
+![PCEP](https://img.shields.io/badge/PCEP-Certified_Entry--Level_Python_Programmer_2024-3776AB?style=flat-square&logo=python&logoColor=FFD43B)
+![AI Competence](https://img.shields.io/badge/AI_Competence_Certificate-Art._4_EU_AI_Act_·_AI_Training_Institute_2025-003399?style=flat-square)
+![Scrum Fundamentals](https://img.shields.io/badge/Scrum_Fundamentals_Certified-EXIN_2024-0B6EB4?style=flat-square)
 
 ---
 
