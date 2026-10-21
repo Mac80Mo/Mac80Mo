@@ -1,0 +1,37 @@
+name: Update profile README timestamp
+
+on:
+  schedule:
+    # Monday-Friday at 08:00 UTC (09:00 CET / 10:00 CEST Europe/Berlin)
+    - cron: '0 8 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update timestamp in README
+        shell: bash
+        run: |
+          timestamp="$(TZ='Europe/Berlin' date '+%Y-%m-%d %H:%M (Europe/Berlin)')"
+          perl -i -pe "s|^Last updated: .*$|Last updated: \`${timestamp}\`|" README.md
+
+      - name: Commit changes if needed
+        shell: bash
+        run: |
+          if git diff --quiet README.md; then
+            echo "No changes detected."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "chore: update profile README timestamp"
+          git push
