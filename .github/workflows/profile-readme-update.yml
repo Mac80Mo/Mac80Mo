@@ -1,20 +1,50 @@
-name: Update profile README timestamp
+name: Update profile README
 
 on:
   schedule:
-    # Monday-Friday at 08:00 UTC (09:00 CET / 10:00 CEST Europe/Berlin)
-    - cron: '0 8 * * 1-5'
+    # Monday-Friday at 04:00 UTC (06:00 CEST / 05:00 CET Europe/Berlin)
+    - cron: '0 4 * * 1-5'
   workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: profile-readme-update
+  cancel-in-progress: false
+
 jobs:
   update-readme:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      # Short-lived, read-only token (repository metadata only) for all own repositories,
+      # including private ones. It is never used for writing; the commit uses GITHUB_TOKEN.
+      # Techstack errors must not block the timestamp update; they fail the job at the end.
+      - name: Create read-only GitHub App token
+        id: app-token
+        continue-on-error: true
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.TECHSTACK_APP_CLIENT_ID }}
+          private-key: ${{ secrets.TECHSTACK_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          permission-metadata: read
+
+      - name: Update techstack in README
+        id: techstack
+        if: steps.app-token.outcome == 'success'
+        continue-on-error: true
+        shell: bash
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          TECHSTACK_MIN_SHARE: '20'
+          TECHSTACK_MIN_REPOS: '3'
+          TECHSTACK_IGNORE: 'HTML,CSS,SCSS,Less,EJS'
+        run: python3 .github/scripts/update_techstack.py
 
       - name: Update timestamp in README
         shell: bash
@@ -33,5 +63,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit -m "chore: update profile README timestamp"
+          git commit -m "chore: update profile README"
           git push
+
+      - name: Fail if techstack update failed
+        if: steps.app-token.outcome != 'success' || steps.techstack.outcome != 'success'
+        shell: bash
+        run: |
+          echo "::error::Techstack update failed (see the steps above). The timestamp was still updated."
+          exit 1
