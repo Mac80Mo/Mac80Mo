@@ -63,7 +63,7 @@ I am also currently deepening my Python skills in the field of Data Analysis.
 
 ## Certifications
 
-![PCEP](https://img.shields.io/badge/PCED-Certified_Entry--Level_Data_Analyst_with_Python_2024-3776AB?style=flat-square&logo=python&logoColor=FFD43B)
+![PCEP](https://img.shields.io/badge/PCED-Certified_Entry--Level_Data_Analyst_with_Python_2026-3776AB?style=flat-square&logo=python&logoColor=FFD43B)
 ![PCAP](https://img.shields.io/badge/PCAP-Certified_Associate_Python_Programmer_2026-3776AB?style=flat-square&logo=python&logoColor=FFD43B)
 ![PCEP](https://img.shields.io/badge/PCEP-Certified_Entry--Level_Python_Programmer_2024-3776AB?style=flat-square&logo=python&logoColor=FFD43B)
 ![AI Competence](https://img.shields.io/badge/AI_Competence_%C2%B7_EU_AI_Act-AI_Training_Institute_2025-003399?style=flat-square)
